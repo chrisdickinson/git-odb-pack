@@ -7,8 +7,10 @@ var path = require('path')
   , packfile = require('git-packfile')
   , extrex = /\.idx$/
 
-function create_odb(source, fs, find_oid, ready) {
-  var pack_path = source.replace(extrex, '.pack')
+function create_odb(entry, fs, find_oid, ready) {
+  var source = entry.path
+    , pack_path = source.replace(extrex, '.pack')
+    , stat = entry.stat
     , pack_idx
     , pack
 
@@ -19,14 +21,6 @@ function create_odb(source, fs, find_oid, ready) {
 
   function gotidx(idx) {
     pack_idx = idx
-
-    fs.stat(pack_path, gotstat)
-  }
-
-  function gotstat(err, stat) {
-    if(err) {
-      return ready(err)
-    }
     pack = packfile(stat.size, find_oid, readpack)
 
     return ready(null, {

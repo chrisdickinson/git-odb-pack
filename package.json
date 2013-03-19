@@ -19,7 +19,7 @@
   "license": "MIT",
   "gitHead": "afc0116ad7613bb617358df857d6b0b2a18a85fd",
   "dependencies": {
-    "git-packidx-parser": "0.0.3",
+    "git-packidx-parser": "0.0.4",
     "git-packfile": "0.0.1"
   },
   "devDependencies": {

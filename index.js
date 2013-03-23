@@ -11,17 +11,27 @@ function create_odb(entry, fs, find_oid, ready) {
   var source = entry.path
     , pack_path = source.replace(extrex, '.pack')
     , stat = entry.stat
+    , packstat
     , pack_idx
     , pack
 
-  fs.createReadStream(source)
-    .pipe(idxparse())
-    .on('data', gotidx)
-    .on('error', ready)
+  fs.stat(pack_path, function(err, _packstat) {
+    if(err) {
+      return ready(err)
+    }
+
+    packstat = _packstat
+
+    fs.createReadStream(source)
+      .pipe(idxparse())
+      .on('data', gotidx)
+      .on('error', ready)
+    
+  })
 
   function gotidx(idx) {
     pack_idx = idx
-    pack = packfile(stat.size, find_oid, readpack)
+    pack = packfile(packstat.size, find_oid, readpack)
 
     return ready(null, {
         readable: true

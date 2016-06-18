@@ -19,8 +19,8 @@
   "license": "MIT",
   "gitHead": "afc0116ad7613bb617358df857d6b0b2a18a85fd",
   "dependencies": {
-    "git-packidx-parser": "0.0.4",
-    "git-packfile": "0.0.4"
+    "git-packidx-parser": "^1.0.0",
+    "git-packfile": "^1.0.0"
   },
   "devDependencies": {
     "tape": "~0.3.0"
